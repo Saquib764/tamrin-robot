@@ -1,0 +1,228 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+    <xacro:include filename='inertial_macros.xacro' />
+
+    <xacro:property name="L1" value="0.5" />
+    <xacro:property name="L2" value="0.5" />
+    <xacro:property name="W" value="0.4" />
+    <xacro:property name="LW" value="0.02" />
+    <xacro:property name="LWW" value="0.05" />
+    <xacro:property name="leg_mass" value="1" />
+    <xacro:property name="hand_mass" value="1" />
+    <xacro:property name="shaft_mass" value="0.8" />
+
+    <xacro:property name="R" value="0.1" />
+    <xacro:property name="WL" value="0.02" />
+    <xacro:property name="wheel_mass" value="5" />
+
+    <xacro:property name="motor" value="continuous" />
+
+
+    <material name="white">
+        <color rgba="1 1 1 1" />
+    </material>
+
+    <material name="orange">
+        <color rgba="1 0.3 0.1 1"/>
+    </material>
+
+    <material name="blue">
+        <color rgba="0.2 0.2 1 1"/>
+    </material>
+
+    <material name="black">
+        <color rgba="0 0 0 1"/>
+    </material>
+
+    <!-- BASE LINK -->
+
+    <link name="base_link">
+
+    </link>
+
+    <!-- SHAFT -->
+    <link name="shaft_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${LWW} ${W} ${LW}"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${LWW} ${W} ${LW}"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="${shaft_mass}" x="${LWW}" y="${W}" z="${LW}">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+
+    <joint name="base_shaft_joint" type="fixed">
+        <origin xyz="0 0 ${L1 + LW/2}" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child link="shaft_link"/>
+    </joint>
+
+    <!-- LEFT LEG -->
+    <link name="left_leg_link">
+        <visual>
+            <origin xyz="0 0 ${L1/2}" rpy="0 0 0"/>
+            <geometry>
+                <box size="${LWW} ${LW} ${L1}"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 ${L1/2}" rpy="0 0 0"/>
+            <geometry>
+                <box size="${LWW} ${LW} ${L1}"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="${leg_mass}" x="${LWW}" y="${LW}" z="${L1}">
+            <origin xyz="0 0 ${L1/2}" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+
+    <joint name="left_leg_joint" type="fixed">
+        <origin xyz="0 ${W/2} ${-L1}" rpy="0 0 0"/>
+        <parent link="shaft_link"/>
+        <child link="left_leg_link"/>
+    </joint>
+
+    <!-- LEFT WHEEL-->
+    <link name="left_wheel_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <cylinder radius="${R}" length="${WL}"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <cylinder radius="${R}" length="${WL}"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="${wheel_mass}" radius="${R}" length="${WL}">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_cylinder>
+    </link>
+
+    <joint name="left_wheel_joint" type="${motor}">
+        <origin xyz="0 ${LW/2 + WL/2 + 0.002} 0" rpy="${-pi/2} 0 0"/>
+        <parent link="left_leg_link"/>
+        <child link="left_wheel_link"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <!-- RIGHT LEG -->
+    <link name="right_leg_link">
+        <visual>
+            <origin xyz="0 0 ${L1/2}" rpy="0 0 0"/>
+            <geometry>
+                <box size="${LWW} ${LW} ${L1}"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 ${L1/2}" rpy="0 0 0"/>
+            <geometry>
+                <box size="${LWW} ${LW} ${L1}"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="${leg_mass}" x="${LWW}" y="${LW}" z="${L1}">
+            <origin xyz="0 0 ${L1/2}" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+
+    <joint name="right_leg_joint" type="fixed">
+        <origin xyz="0 ${-W/2} ${-L1}" rpy="0 0 0"/>
+        <parent link="shaft_link"/>
+        <child link="right_leg_link"/>
+    </joint>
+
+    <!-- RIGHT WHEEL-->
+    <link name="right_wheel_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <cylinder radius="${R}" length="${WL}"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <cylinder radius="${R}" length="${WL}"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="${wheel_mass}" radius="${R}" length="${WL}">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_cylinder>
+    </link>
+
+    <joint name="right_wheel_joint" type="${motor}">
+        <origin xyz="0 ${-LW/2 - WL/2 - 0.002} 0" rpy="${pi/2} 0 0"/>
+        <parent link="right_leg_link"/>
+        <child link="right_wheel_link"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <!-- LEFT HAND -->
+    <link name="left_hand_link">
+        <visual>
+            <origin xyz="0 0 ${L1/2}" rpy="0 0 0"/>
+            <geometry>
+                <box size="${LWW} ${LW} ${L1}"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 ${L1/2}" rpy="0 0 0"/>
+            <geometry>
+                <box size="${LWW} ${LW} ${L1}"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="${hand_mass}" x="${LWW}" y="${LW}" z="${L1}">
+            <origin xyz="0 0 ${L1/2}" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+
+    <joint name="left_hand_joint" type="fixed">
+        <origin xyz="0 ${W/2 + LW} 0" rpy="0 ${-pi/2} 0"/>
+        <parent link="shaft_link"/>
+        <child link="left_hand_link"/>
+    </joint>
+
+    <!-- RIGHT HAND -->
+    <link name="right_hand_link">
+        <visual>
+            <origin xyz="0 0 ${L1/2}" rpy="0 0 0"/>
+            <geometry>
+                <box size="${LWW} ${LW} ${L1}"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 ${L1/2}" rpy="0 0 0"/>
+            <geometry>
+                <box size="${LWW} ${LW} ${L1}"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="${hand_mass}" x="${LWW}" y="${LW}" z="${L1}">
+            <origin xyz="0 0 ${L1/2}" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+
+    <joint name="right_hand_joint" type="fixed">
+        <origin xyz="0 ${-W/2 - LW} 0" rpy="0 ${-pi/2} 0"/>
+        <parent link="shaft_link"/>
+        <child link="right_hand_link"/>
+    </joint>
+
+</robot>
