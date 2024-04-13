@@ -61,6 +61,10 @@
         </xacro:inertial_box>
     </link>
 
+    <gazebo reference="shaft_link">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+
     <joint name="base_shaft_joint" type="fixed">
         <origin xyz="0 0 ${L1 + LW/2}" rpy="0 0 0"/>
         <parent link="base_link"/>
@@ -87,6 +91,10 @@
         </xacro:inertial_box>
     </link>
 
+    <gazebo reference="left_leg_link">
+        <material>Gazebo/Orange</material>
+    </gazebo>
+
     <joint name="left_leg_joint" type="fixed">
         <origin xyz="0 ${W/2} ${-L1}" rpy="0 0 0"/>
         <parent link="shaft_link"/>
@@ -112,6 +120,10 @@
             <origin xyz="0 0 0" rpy="0 0 0"/>
         </xacro:inertial_cylinder>
     </link>
+
+    <gazebo reference="left_wheel_link">
+        <material>Gazebo/White</material>
+    </gazebo>
 
     <joint name="left_wheel_joint" type="${motor}">
         <origin xyz="0 ${LW/2 + WL/2 + 0.002} 0" rpy="${-pi/2} 0 0"/>
@@ -140,6 +152,10 @@
         </xacro:inertial_box>
     </link>
 
+    <gazebo reference="right_leg_link">
+        <material>Gazebo/Orange</material>
+    </gazebo>
+
     <joint name="right_leg_joint" type="fixed">
         <origin xyz="0 ${-W/2} ${-L1}" rpy="0 0 0"/>
         <parent link="shaft_link"/>
@@ -165,6 +181,10 @@
             <origin xyz="0 0 0" rpy="0 0 0"/>
         </xacro:inertial_cylinder>
     </link>
+
+    <gazebo reference="right_wheel_link">
+        <material>Gazebo/White</material>
+    </gazebo>
 
     <joint name="right_wheel_joint" type="${motor}">
         <origin xyz="0 ${-LW/2 - WL/2 - 0.002} 0" rpy="${pi/2} 0 0"/>
@@ -193,6 +213,10 @@
         </xacro:inertial_box>
     </link>
 
+    <gazebo reference="left_hand_link">
+        <material>Gazebo/Orange</material>
+    </gazebo>
+
     <joint name="left_hand_joint" type="fixed">
         <origin xyz="0 ${W/2 + LW} 0" rpy="0 ${-pi/2} 0"/>
         <parent link="shaft_link"/>
@@ -218,6 +242,10 @@
             <origin xyz="0 0 ${L1/2}" rpy="0 0 0"/>
         </xacro:inertial_box>
     </link>
+
+    <gazebo reference="right_hand_link">
+        <material>Gazebo/Orange</material>
+    </gazebo>
 
     <joint name="right_hand_joint" type="fixed">
         <origin xyz="0 ${-W/2 - LW} 0" rpy="0 ${-pi/2} 0"/>
