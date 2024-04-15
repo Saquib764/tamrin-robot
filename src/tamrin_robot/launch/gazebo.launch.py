@@ -27,6 +27,8 @@ def generate_launch_description():
     # Include the Gazebo launch file, provided by the gazebo_ros package
     ros_gz_sim = get_package_share_directory('ros_gz_sim')
 
+    world = os.path.join(get_package_share_directory(package_name), 'world', 'empty_world.world')
+    
     gzserver_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(ros_gz_sim, 'launch', 'gz_sim.launch.py')
