@@ -1,0 +1,340 @@
+#VRML_SIM R2023b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/floors/protos/RectangleArena.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.07352591253442158 -0.12251338844513436 0.9897395666728052 5.193047046765838
+  position -1.8718104979595573 2.577277987522794 0.5694038865576172
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  translation 0 0 -0.1
+  floorSize 20 20
+}
+Robot {
+  rotation 0 1 0 0
+  children [
+    DEF my_robot Solid {
+      translation 3.402476881173011e-06 1.419991941591852e-18 0.509532451606764
+      rotation -3.7527042353227803e-13 1 4.213711528392502e-14 3.266494495291913e-05
+      children [
+        Solid {
+          translation 0 0 0.04
+          children [
+            Camera {
+            }
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.156817 1 0.229877
+              }
+              geometry Box {
+                size 0.05 0.05 0.02
+              }
+            }
+          ]
+          name "camera_link"
+        }
+        Solid {
+          translation 0 0 0.02
+          children [
+            Accelerometer {
+            }
+            Gyro {
+            }
+            Shape {
+              appearance PBRAppearance {
+              }
+              geometry Box {
+                size 0.05 0.05 0.02
+              }
+            }
+          ]
+          name "imu_link"
+        }
+        DEF robot Shape {
+          appearance DEF blue PBRAppearance {
+            baseColor 0.5 0.5 0.5
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.05 0.4 0.02
+          }
+        }
+        Solid {
+          translation 0 0.2 -0.5
+          children [
+            Pose {
+              translation 0 0 0.25
+              children [
+                Shape {
+                  appearance DEF orange PBRAppearance {
+                    baseColor 0.5 0.5 0.5
+                    roughness 1
+                    metalness 0
+                  }
+                  geometry Box {
+                    size 0.05 0.02 0.5
+                  }
+                }
+              ]
+            }
+            HingeJoint {
+              jointParameters HingeJointParameters {
+                position 1.0361806309462431e-13
+                axis 0 1 0
+                anchor 0 0.022 0
+              }
+              device [
+                RotationalMotor {
+                  name "left_wheel_joint"
+                  maxTorque 10000
+                }
+                PositionSensor {
+                  name "left_wheel_joint_sensor"
+                }
+              ]
+              endPoint Solid {
+                translation 0 0.022 0
+                rotation -1 5.161881097801444e-14 5.161770361485508e-14 1.5707959999999999
+                children [
+                  Shape {
+                    appearance DEF white PBRAppearance {
+                      baseColor 0.5 0.5 0.5
+                      roughness 1
+                      metalness 0
+                    }
+                    geometry Cylinder {
+                      height 0.02
+                      radius 0.1
+                    }
+                  }
+                ]
+                name "left_wheel_link"
+                boundingObject Cylinder {
+                  height 0.02
+                  radius 0.1
+                }
+                physics Physics {
+                  density -1
+                  mass 5
+                  centerOfMass [
+                    0 0 0
+                  ]
+                  inertiaMatrix [
+                    0.01266667 0.01266667 0.025
+                    0 0 0
+                  ]
+                }
+              }
+            }
+          ]
+          name "left_leg_link"
+          boundingObject Pose {
+            translation 0 0 0.25
+            children [
+              Box {
+                size 0.05 0.02 0.5
+              }
+            ]
+          }
+          physics Physics {
+            density -1
+            mass 1
+            centerOfMass [
+              0 0 0.25
+            ]
+            inertiaMatrix [
+              0.02086667 0.02104167 0.0002416667
+              0 0 0
+            ]
+          }
+        }
+        Solid {
+          translation 0 -0.2 -0.5
+          children [
+            Pose {
+              translation 0 0 0.25
+              children [
+                Shape {
+                  appearance USE orange
+                  geometry Box {
+                    size 0.05 0.02 0.5
+                  }
+                }
+              ]
+            }
+            HingeJoint {
+              jointParameters HingeJointParameters {
+                position -1.0391687510491465e-13
+                axis 0 -1 0
+                anchor 0 -0.022 0
+              }
+              device [
+                RotationalMotor {
+                  name "right_wheel_joint"
+                  maxTorque 10000
+                }
+                PositionSensor {
+                  name "right_wheel_joint_sensor"
+                }
+              ]
+              endPoint Solid {
+                translation 0 -0.022 0
+                rotation 1 5.223559409246637e-14 -5.223056588518549e-14 1.5707959999999999
+                children [
+                  Shape {
+                    appearance USE white
+                    geometry Cylinder {
+                      height 0.02
+                      radius 0.1
+                    }
+                  }
+                ]
+                name "right_wheel_link"
+                boundingObject Cylinder {
+                  height 0.02
+                  radius 0.1
+                }
+                physics Physics {
+                  density -1
+                  mass 5
+                  centerOfMass [
+                    0 0 0
+                  ]
+                  inertiaMatrix [
+                    0.01266667 0.01266667 0.025
+                    0 0 0
+                  ]
+                }
+              }
+            }
+          ]
+          name "right_leg_link"
+          boundingObject Pose {
+            translation 0 0 0.25
+            children [
+              Box {
+                size 0.05 0.02 0.5
+              }
+            ]
+          }
+          physics Physics {
+            density -1
+            mass 1
+            centerOfMass [
+              0 0 0.25
+            ]
+            inertiaMatrix [
+              0.02086667 0.02104167 0.0002416667
+              0 0 0
+            ]
+          }
+        }
+        Solid {
+          translation 0 0.22 0
+          rotation 0 -1 0 1.570796
+          children [
+            Pose {
+              translation 0 0 0.25
+              children [
+                Shape {
+                  appearance USE orange
+                  geometry Box {
+                    size 0.05 0.02 0.5
+                  }
+                }
+              ]
+            }
+          ]
+          name "left_hand_link"
+          boundingObject Pose {
+            translation 0 0 0.25
+            children [
+              Box {
+                size 0.05 0.02 0.5
+              }
+            ]
+          }
+          physics Physics {
+            density -1
+            mass 1
+            centerOfMass [
+              0 0 0.25
+            ]
+            inertiaMatrix [
+              0.02086667 0.02104167 0.0002416667
+              0 0 0
+            ]
+          }
+        }
+        Solid {
+          translation 0 -0.22 0
+          rotation 0 -1 0 1.570796
+          children [
+            Pose {
+              translation 0 0 0.25
+              children [
+                Shape {
+                  appearance USE orange
+                  geometry Box {
+                    size 0.05 0.02 0.5
+                  }
+                }
+              ]
+            }
+          ]
+          name "right_hand_link"
+          boundingObject Pose {
+            translation 0 0 0.25
+            children [
+              Box {
+                size 0.05 0.02 0.5
+              }
+            ]
+          }
+          physics Physics {
+            density -1
+            mass 1
+            centerOfMass [
+              0 0 0.25
+            ]
+            inertiaMatrix [
+              0.02086667 0.02104167 0.0002416667
+              0 0 0
+            ]
+          }
+        }
+      ]
+      name "shaft_link"
+      boundingObject Box {
+        size 0.05 0.4 0.02
+      }
+      physics Physics {
+        density -1
+        mass 0.8
+        centerOfMass [
+          0 0 0
+        ]
+        inertiaMatrix [
+          0.01069333 0.0001933333 0.01083333
+          0 0 0
+        ]
+      }
+    }
+  ]
+  name "my_robot"
+  boundingObject USE robot
+  physics Physics {
+    density -1
+    mass 5
+  }
+  controller "<extern>"
+}
