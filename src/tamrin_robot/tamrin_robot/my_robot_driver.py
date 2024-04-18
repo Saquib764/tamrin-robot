@@ -1,6 +1,7 @@
 import rclpy
 from geometry_msgs.msg import Twist
 import numpy as np
+import control
 
 HALF_DISTANCE_BETWEEN_WHEELS = 0.045
 WHEEL_RADIUS = 0.025
@@ -29,7 +30,7 @@ D = np.array([[0]])
 Q = np.array([[100, 0],
               [0, 10]])
 R = np.array([[1]])
-K, _, _ = np.linalg.lqr(A, B, Q, R)
+K, _, _ = control.lqr(A, B, Q, R)
 
 class MyRobotDriver:
     def init(self, webots_node, properties):
