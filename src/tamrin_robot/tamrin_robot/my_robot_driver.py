@@ -9,20 +9,20 @@ WHEEL_RADIUS = 0.025
 
 
 # System parameters
-M = 0.5  # Mass of the pendulum
-m = 0.2  # Mass of the cart
-l = 0.3  # Length to the pendulum center of mass
+M = 3  # Mass of the pendulum
+m = 10  # Mass of the cart
+l = 0.4  # Length to the pendulum center of mass
 g = 9.81  # Gravity
 dt = 0.01  # Time step
 
 # State-space matrices
 A = np.array([[0, 1],
-              [(M+m)*g*l/(M*l**2), 0]])
+              [g/l, 0]])
 
 B = np.array([[0],
-              [1/(M*l)]])
+              [1/(M*l*l)]])
 
-C = np.array([[1, 0]])
+C = np.array([[0, 1]])
 
 D = np.array([[0]])
 
@@ -52,15 +52,17 @@ class MyRobotDriver:
         
         # setup gyroscopic sensor
         self.__gyro = self.__robot.getDevice('gyro')
-        self.__gyro.enable(1)
+        self.__gyro.enable(dt * 1000)
 
         # setup accelerometer sensor
         self.__accelerometer = self.__robot.getDevice('accelerometer')
-        self.__accelerometer.enable(1)
+        self.__accelerometer.enable(dt * 1000)
 
         # Initialize state variables
         self.x = np.array([ [0],  # Initial angle
                             [0]])  # Initial angular velocity
+        
+        self.u_prev = 0
 
           
         # self.__left_motor = self.__robot.getDevice('left wheel motor')
@@ -76,7 +78,7 @@ class MyRobotDriver:
 
         rclpy.init(args=None)
         self.__node = rclpy.create_node('my_robot_driver')
-        self.__node.create_subscription(Twist, 'cmd_vel', self.__cmd_vel_callback, 1)
+        self.__node.create_subscription(Twist, 'cmd_vel', self.__cmd_vel_callback, dt * 1000)
 
     def __cmd_vel_callback(self, twist):
         self.__target_twist = twist
@@ -90,16 +92,14 @@ class MyRobotDriver:
         accelerometer_reading = self.__accelerometer.getValues()
         print("Accelerometer reading: {}".format(accelerometer_reading))
 
+        self.x = self.x + dt * (A @ self.x + B * (self.u_prev))
 
+        u = -K @ self.x
 
-        # forward_speed = self.__target_twist.linear.x
-        # angular_speed = self.__target_twist.angular.z
+        self.__left_motor.setTorque(u)
+        self.__right_motor.setTorque(u)
 
-        # command_motor_left = (forward_speed - angular_speed * HALF_DISTANCE_BETWEEN_WHEELS) / WHEEL_RADIUS
-        # command_motor_right = (forward_speed + angular_speed * HALF_DISTANCE_BETWEEN_WHEELS) / WHEEL_RADIUS
-
-        # self.__left_motor.setVelocity(command_motor_left)
-        # self.__right_motor.setVelocity(command_motor_right)
+        self.u_prev = u
         pass
     
 if __name__ == '__main__':
