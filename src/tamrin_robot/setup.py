@@ -13,6 +13,7 @@ setup(
         ('share/' + package_name + '/launch', glob('launch/*')),
         ('share/' + package_name + '/description', glob('description/*')),
         ('share/' + package_name + '/config', glob('config/*')),
+        ('share/' + package_name + '/setups', glob('setups/*')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,

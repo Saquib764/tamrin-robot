@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<robot name="my_robot">
+    <webots>
+        <plugin type="tamrin_robot.my_robot_driver.MyRobotDriver" />
+    </webots>
+</robot>
