@@ -10,7 +10,6 @@ def generate_launch_description():
     package_dir = get_package_share_directory('tamrin_robot')
     robot_description_path = os.path.join(package_dir, 'description', 'webots_robot.urdf')
 
-
     my_robot_driver = WebotsController(
         robot_name='my_robot',
         parameters=[

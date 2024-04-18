@@ -7,11 +7,11 @@ from webots_ros2_driver.webots_controller import WebotsController
 
 
 def generate_launch_description():
-    package_dir = get_package_share_directory('tamrin_robot')
-    robot_description_path = os.path.join(package_dir, 'description', 'webots_robot.urdf')
+    pkg_path = os.path.join(get_package_share_directory('tamrin_robot'))
+    robot_description_path = os.path.join(pkg_path, 'description', 'webots_robot.urdf')
 
     webots = WebotsLauncher(
-        world=os.path.join(package_dir, 'worlds', 'webots_world_1.wbt')
+        world=os.path.join(pkg_path, 'worlds', 'webots_world_1.wbt')
     )
 
     ros2_supervisor = Ros2SupervisorLauncher()

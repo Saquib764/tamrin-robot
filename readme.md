@@ -9,4 +9,4 @@ source /opt/ros/humble/setup.bash
 
 colcon build && source install/setup.sh
 
-
+source install/setup.sh && ros2 launch tamrin_robot webots.launch.py
