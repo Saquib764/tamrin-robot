@@ -44,6 +44,7 @@ print("K: {}".format(K))
 class MyRobotDriver:
     def init(self, webots_node, properties):
         self.__robot = webots_node.robot
+        self.__root = self.__robot.getRoot()
         self.__node = None
 
         # camera
@@ -92,6 +93,13 @@ class MyRobotDriver:
         self.__t = datetime.datetime.now()
         self.__node.create_subscription(Twist, 'cmd_vel', self.__cmd_vel_callback, 0)
 
+    def get_aruco_pose_by_id(self, id):
+        name = 'aruco_' + str(id)
+        aruco = self.__root.getField(name)
+        position = aruco.getSFVec3f()
+
+        return position
+
     def __cmd_vel_callback(self, twist):
         self.__target_twist = twist
 
@@ -111,10 +119,12 @@ class MyRobotDriver:
         self.x[0,0] += gyro_reading[1] * _dt
         self.x[1,0] = gyro_reading[1]
 
-        a = -(accelerometer_reading[0] - g * np.sin(self.x[0,0]))
+        a = -(accelerometer_reading[0] - g * np.sin(self.x[0,0])) / np.cos(self.x[0,0])
         self.x[2,0] += a * _dt
 
-        print("x: {}".format(self.x), a, accelerometer_reading[0], g * np.sin(self.x[0,0]))
+        ar = self.get_aruco_pose_by_id(0)
+
+        print("ARUCO: {}".format(ar)    )
 
 
         # self.x = self.x + _dt * (A @ self.x + B * (self.u_prev))

@@ -5,10 +5,16 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/project
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/floors/protos/RectangleArena.proto"
 
 WorldInfo {
+  contactProperties [
+    ContactProperties {
+      frictionRotation 0.5 0.5
+      rollingFriction 0.5 0.5 0.5
+    }
+  ]
 }
 Viewpoint {
-  orientation -0.211732140396819 -0.08586806132080381 0.9735482405962165 3.8936768434457956
-  position 3.3457006769676543 2.693370282609278 1.7734875050496104
+  orientation -0.338403081241168 -0.3777499439396618 0.8618516893642815 4.673729618308556
+  position 2.6081726607228277 0.8206248110968852 2.142052006045282
 }
 TexturedBackground {
 }
@@ -350,4 +356,94 @@ Robot {
     mass 5
   }
   controller "<extern>"
+}
+Solid {
+  translation 1 0 -0.09
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColorMap ImageTexture {
+          url [
+            "../arucos/aruco-marker-ID=0.png"
+          ]
+        }
+      }
+      geometry Plane {
+        size 0.25 0.25
+      }
+    }
+  ]
+  name "aruco-0"
+}
+Solid {
+  translation 0.5 1 -0.09
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColorMap ImageTexture {
+          url [
+            "../arucos/aruco-marker-ID=1.png"
+          ]
+        }
+      }
+      geometry Plane {
+        size 0.25 0.25
+      }
+    }
+  ]
+  name "aruco-1"
+}
+Solid {
+  translation 0.5 -1 -0.09
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColorMap ImageTexture {
+          url [
+            "../arucos/aruco-marker-ID=2.png"
+          ]
+        }
+      }
+      geometry Plane {
+        size 0.25 0.25
+      }
+    }
+  ]
+  name "aruco-2"
+}
+Solid {
+  translation -1.5 0 -0.09
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColorMap ImageTexture {
+          url [
+            "../arucos/aruco-marker-ID=3.png"
+          ]
+        }
+      }
+      geometry Plane {
+        size 0.25 0.25
+      }
+    }
+  ]
+  name "aruco-3"
+}
+Solid {
+  translation 3 -1 -0.09
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColorMap ImageTexture {
+          url [
+            "../arucos/aruco-marker-ID=4.png"
+          ]
+        }
+      }
+      geometry Plane {
+        size 0.25 0.25
+      }
+    }
+  ]
+  name "aruco-4"
 }
