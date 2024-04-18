@@ -5,16 +5,10 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/project
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/floors/protos/RectangleArena.proto"
 
 WorldInfo {
-  contactProperties [
-    ContactProperties {
-      frictionRotation 0.5 0.5
-      rollingFriction 0.5 0.5 0.5
-    }
-  ]
 }
 Viewpoint {
-  orientation -0.338403081241168 -0.3777499439396618 0.8618516893642815 4.673729618308556
-  position 2.6081726607228277 0.8206248110968852 2.142052006045282
+  orientation -0.32930126298234924 -0.349597295116222 0.8771216617127017 4.641157214049648
+  position -1.4709148658855264 12.413468748113923 10.994614625208923
 }
 TexturedBackground {
 }
@@ -35,6 +29,8 @@ Robot {
           translation 0 0 0.04
           children [
             Camera {
+              width 640
+              height 480
             }
             Shape {
               appearance PBRAppearance {

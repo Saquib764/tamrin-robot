@@ -15,6 +15,7 @@ setup(
         ('share/' + package_name + '/config', glob('config/*')),
         ('share/' + package_name + '/setups', glob('setups/*')),
         ('share/' + package_name + '/worlds', glob('worlds/*')),
+        ('share/' + package_name + '/arucos', glob('arucos/*')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,

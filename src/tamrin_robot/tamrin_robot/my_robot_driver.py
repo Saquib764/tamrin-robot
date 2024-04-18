@@ -1,11 +1,9 @@
 import rclpy
 from geometry_msgs.msg import Twist
+from webots_ros2_driver.webots_launcher import WebotsLauncher, Ros2SupervisorLauncher
 import numpy as np
 import control
 import datetime
-
-HALF_DISTANCE_BETWEEN_WHEELS = 0.045
-WHEEL_RADIUS = 0.025
 
 
 
@@ -44,8 +42,8 @@ print("K: {}".format(K))
 class MyRobotDriver:
     def init(self, webots_node, properties):
         self.__robot = webots_node.robot
-        self.__root = self.__robot.getRoot()
         self.__node = None
+        
 
         # camera
         # accelerometer
@@ -74,6 +72,10 @@ class MyRobotDriver:
                             [0.0],  # Initial angular velocity
                             [0.0]]) # Velocity
         
+        # Initialize camera
+        self.camera = self.__robot.getDevice('camera')
+        self.camera.enable(int(dt * 1000))
+
         self.u_prev = 0
 
           
@@ -93,12 +95,6 @@ class MyRobotDriver:
         self.__t = datetime.datetime.now()
         self.__node.create_subscription(Twist, 'cmd_vel', self.__cmd_vel_callback, 0)
 
-    def get_aruco_pose_by_id(self, id):
-        name = 'aruco_' + str(id)
-        aruco = self.__root.getField(name)
-        position = aruco.getSFVec3f()
-
-        return position
 
     def __cmd_vel_callback(self, twist):
         self.__target_twist = twist
@@ -122,20 +118,27 @@ class MyRobotDriver:
         a = -(accelerometer_reading[0] - g * np.sin(self.x[0,0])) / np.cos(self.x[0,0])
         self.x[2,0] += a * _dt
 
-        ar = self.get_aruco_pose_by_id(0)
+        # print("dt: {}".format(_dt))
 
-        print("ARUCO: {}".format(ar)    )
+        # ar = self.get_aruco_pose_by_id(0)
+
+        # print("ARUCO: {}".format(ar)    )
 
 
         # self.x = self.x + _dt * (A @ self.x + B * (self.u_prev))
+        
 
         target = np.array([[0.0], [0.0], [self.__target_twist.linear.x]])
 
         u = -K @ (self.x - target)
 
+
         u_ = u[0,0]
 
         rotate = -(self.__target_twist.angular.z - gyro_reading[2]) * 2.0
+
+
+        print("u: {}".format(u), "rotate: {}".format(rotate), "x: {}".format(self.x), "Twist: {}".format(self.__target_twist))
 
         self.__left_motor.setTorque(-u_ + rotate)
         self.__right_motor.setTorque(u_ + rotate)

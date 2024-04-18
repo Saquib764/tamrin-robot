@@ -26,6 +26,10 @@ colcon build  && ros2 launch tamrin_robot webots_robot.launch.py
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
 
 
+# Create package
+cd ~/ros2_ws/src
+ros2 pkg create --build-type ament_python <name>
+
 # Issues
 Dealing with permission issue-
 sudo chown -R saquib:saquib ./webots_execute
