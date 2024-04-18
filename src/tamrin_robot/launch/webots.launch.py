@@ -8,7 +8,6 @@ from webots_ros2_driver.webots_controller import WebotsController
 
 def generate_launch_description():
     pkg_path = os.path.join(get_package_share_directory('tamrin_robot'))
-    print(pkg_path)
 
     webots = WebotsLauncher(
         world=os.path.join(pkg_path, 'worlds', 'webots_world_1.wbt')

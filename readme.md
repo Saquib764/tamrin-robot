@@ -21,7 +21,7 @@ source install/setup.sh
 colcon build 
 
 ros2 launch tamrin_robot webots.launch.py
-ros2 launch tamrin_robot webots_robot.launch.py
+colcon build  && ros2 launch tamrin_robot webots_robot.launch.py
 
 
 # Issues
