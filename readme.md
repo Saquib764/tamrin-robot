@@ -23,6 +23,8 @@ colcon build
 ros2 launch tamrin_robot webots.launch.py
 colcon build  && ros2 launch tamrin_robot webots_robot.launch.py
 
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+
 
 # Issues
 Dealing with permission issue-
