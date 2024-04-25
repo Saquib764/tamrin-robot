@@ -37,7 +37,7 @@ class ArUcoDetector(Node):
         print(corners, ids)
         # im = Image.fromarray(cv_image)
         # im.save("aruco_input.png")
-        cv2.imwrite("aruco_input.png", cv_image)
+        # cv2.imwrite("aruco_input.png", cv_image)
         # Draw detected markers
         if ids is not None:
             cv_image = aruco.drawDetectedMarkers(cv_image, corners, ids)
