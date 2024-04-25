@@ -8,7 +8,7 @@ WorldInfo {
 }
 Viewpoint {
   orientation -0.32930126298234924 -0.349597295116222 0.8771216617127017 4.641157214049648
-  position -1.4709148658855264 12.413468748113923 10.994614625208923
+  position 0.13648837279826964 2.5859595069825994 2.238870741375621
 }
 TexturedBackground {
 }
@@ -363,6 +363,8 @@ Solid {
             "../arucos/aruco-marker-ID=0.png"
           ]
         }
+        metalness 0.1
+        IBLStrength 0.1
       }
       geometry Plane {
         size 0.25 0.25
@@ -381,6 +383,8 @@ Solid {
             "../arucos/aruco-marker-ID=1.png"
           ]
         }
+        roughness 0.1
+        metalness 0.1
       }
       geometry Plane {
         size 0.25 0.25
@@ -399,6 +403,7 @@ Solid {
             "../arucos/aruco-marker-ID=2.png"
           ]
         }
+        metalness 0.1
       }
       geometry Plane {
         size 0.25 0.25
@@ -417,6 +422,8 @@ Solid {
             "../arucos/aruco-marker-ID=3.png"
           ]
         }
+        metalness 0.1
+        IBLStrength 0.1
       }
       geometry Plane {
         size 0.25 0.25
@@ -435,6 +442,7 @@ Solid {
             "../arucos/aruco-marker-ID=4.png"
           ]
         }
+        metalness 0.1
       }
       geometry Plane {
         size 0.25 0.25

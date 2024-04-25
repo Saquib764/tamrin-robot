@@ -4,6 +4,7 @@ from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
 import cv2
 import cv2.aruco as aruco
+# from PIL import Image
 
 class ArUcoDetector(Node):
     def __init__(self):
@@ -23,12 +24,20 @@ class ArUcoDetector(Node):
             return
 
         # Detect ArUco markers
-        aruco_dict = aruco.Dictionary_get(aruco.DICT_4X4_50)
-        parameters = aruco.DetectorParameters_create()
-        corners, ids, rejectedImgPoints = aruco.detectMarkers(cv_image, aruco_dict, parameters=parameters)
+        gray = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
+
+        aruco_dict = aruco.getPredefinedDictionary(aruco.DICT_4X4_50)
+        parameters = aruco.DetectorParameters()
+        detector = aruco.ArucoDetector(aruco_dict, parameters)
+
+
+
+        corners, ids, rejectedImgPoints = detector.detectMarkers(gray)
 
         print(corners, ids)
-
+        # im = Image.fromarray(cv_image)
+        # im.save("aruco_input.png")
+        cv2.imwrite("aruco_input.png", cv_image)
         # Draw detected markers
         if ids is not None:
             cv_image = aruco.drawDetectedMarkers(cv_image, corners, ids)
