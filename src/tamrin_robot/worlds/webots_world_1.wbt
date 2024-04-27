@@ -8,7 +8,7 @@ WorldInfo {
 }
 Viewpoint {
   orientation -0.32930126298234924 -0.349597295116222 0.8771216617127017 4.641157214049648
-  position 0.13648837279826964 2.5859595069825994 2.238870741375621
+  position -0.2122365668295106 8.412162174812899 7.340453776108541
 }
 TexturedBackground {
 }
@@ -354,7 +354,7 @@ Robot {
   controller "<extern>"
 }
 Solid {
-  translation 1 0 -0.09
+  translation 2.5 0 -0.09
   children [
     Shape {
       appearance PBRAppearance {

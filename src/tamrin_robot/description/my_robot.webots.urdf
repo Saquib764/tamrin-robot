@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<robot name="my_robot" xmlns:xacro="http://ros.org/wiki/xacro">
+  <webots>
+      <plugin type="tamrin_robot.my_robot_driver.MyRobotDriver" />
+  </webots>
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.05 0.4 0.02"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.05 0.4 0.02"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="shaft_link">
+  </link>
+  <joint name="base_link_shaft_link_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="shaft_link"/>
+    <origin xyz="0.000003 0 0.509532" rpy="0 0.000033 0"/>
+  </joint>
+  <link name="right_hand_link">
+    <visual>
+      <origin xyz="0 0 0.25" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.02 0.5"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.25" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.02 0.5"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="shaft_link_right_hand_link_joint" type="fixed">
+    <parent link="shaft_link"/>
+    <child link="right_hand_link"/>
+    <origin xyz="0 -0.22 0" rpy="0 -1.570796 0"/>
+  </joint>
+  <link name="left_hand_link">
+    <visual>
+      <origin xyz="0 0 0.25" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.02 0.5"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.25" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.02 0.5"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="shaft_link_left_hand_link_joint" type="fixed">
+    <parent link="shaft_link"/>
+    <child link="left_hand_link"/>
+    <origin xyz="0 0.22 0" rpy="0 -1.570796 0"/>
+  </joint>
+  <link name="right_leg_link">
+    <visual>
+      <origin xyz="0 0 0.25" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.02 0.5"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.25" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.02 0.5"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="shaft_link_right_leg_link_joint" type="fixed">
+    <parent link="shaft_link"/>
+    <child link="right_leg_link"/>
+    <origin xyz="0 -0.2 -0.5" rpy="0 0 0"/>
+  </joint>
+  <joint name="right_wheel_joint" type="continuous">
+    <parent link="right_leg_link"/>
+    <child link="right_wheel_link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10000" velocity="10"/>
+    <origin xyz="0 -0.022 0" rpy="1.570796 0 0"/>
+  </joint>
+  <link name="right_wheel_link">
+  </link>
+  <link name="left_leg_link">
+    <visual>
+      <origin xyz="0 0 0.25" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.02 0.5"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.25" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.02 0.5"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="shaft_link_left_leg_link_joint" type="fixed">
+    <parent link="shaft_link"/>
+    <child link="left_leg_link"/>
+    <origin xyz="0 0.2 -0.5" rpy="0 0 0"/>
+  </joint>
+  <joint name="left_wheel_joint" type="continuous">
+    <parent link="left_leg_link"/>
+    <child link="left_wheel_link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10000" velocity="10"/>
+    <origin xyz="0 0.022 0" rpy="-1.570796 0 0"/>
+  </joint>
+  <link name="left_wheel_link">
+  </link>
+  <link name="imu_link">
+  </link>
+  <joint name="shaft_link_imu_link_joint" type="fixed">
+    <parent link="shaft_link"/>
+    <child link="imu_link"/>
+    <origin xyz="0 0 0.02" rpy="0 0 0"/>
+  </joint>
+  <link name="gyro">
+  </link>
+  <joint name="imu_link_gyro_joint" type="fixed">
+    <parent link="imu_link"/>
+    <child link="gyro"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+  <link name="accelerometer">
+  </link>
+  <joint name="imu_link_accelerometer_joint" type="fixed">
+    <parent link="imu_link"/>
+    <child link="accelerometer"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+  <link name="camera_link">
+  </link>
+  <joint name="shaft_link_camera_link_joint" type="fixed">
+    <parent link="shaft_link"/>
+    <child link="camera_link"/>
+    <origin xyz="0 0 0.04" rpy="0 0 0"/>
+  </joint>
+  <link name="camera">
+  </link>
+  <joint name="camera_link_camera_joint" type="fixed">
+    <parent link="camera_link"/>
+    <child link="camera"/>
+    <origin xyz="0 0 0" rpy="-1.570796 0 -1.570796"/>
+  </joint>
+</robot>
